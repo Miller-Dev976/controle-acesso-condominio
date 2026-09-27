@@ -1,4 +1,4 @@
-# Condomínio BemMorar — Reservas de Áreas Comuns
+# Condomínio CondoSystem — Reservas de Áreas Comuns
 
 Sistema para o síndico organizar moradores, unidades e reservas das áreas comuns
 (salão de festas, churrasqueira, quadra), substituindo o grupo de WhatsApp.
