@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Jost" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Jost, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container-login {
+            width: 100%;
+            max-width: 400px;
+        }
+        .campo-login {
+            background-color: #fff;
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header-login {
+            margin-bottom: 30px;
+        }
+        .header-login h1 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .header-login h3 {
+            font-size: 14px;
+            color: #9e9e9e;
+            font-weight: 400;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 13px;
+            font-size: 14px;
+            font-family: Jost, sans-serif;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #000;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 13px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: Jost, sans-serif;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn-login:hover {
+            background-color: #333;
+        }
+        
+        .btn-login:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        .error-message {
+            background-color: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+
+        /* Responsividade */
+        @media (max-width: 480px) {
+            .campo-login {
+                padding: 40px 25px;
+            }
+
+            .header-login h1 {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+    <title>Condo System - Login</title>
+</head>
+<body>
+        <div class="container-login">
+        <div class="campo-login">
+            <div class="header-login">
+                <h1>Condo Access</h1>
+                <h3>Controle de Acesso Inteligente</h3>
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+
+            <form id="loginForm" class="form-login">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" name="username" id="username" placeholder="Digite seu usuário" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+                </div>
+                
+                <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const btnLogin = document.getElementById('btnLogin');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', async (e) => {
+            // Previne o submit padrão do HTML
+            e.preventDefault();
+            
+            // Desabilita botão e mostra loading
+            btnLogin.disabled = true;
+            btnLogin.textContent = 'Entrando...';
+            errorMessage.classList.remove('show');
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                // Chama nossa API REST (não mais o form tradicional)
+                const response = await fetch('http://localhost:8080/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        throw new Error('Usuário ou senha inválidos');
+                    }
+                    throw new Error('Erro ao fazer login');
+                }
+                
+                const data = await response.json();
+                
+                // Salva o token JWT no localStorage
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('perfil', data.perfil);
+                
+                // Redireciona baseado no perfil
+                switch(data.perfil) {
+                    case 'PORTARIA':
+                        window.location.href = '/pages/portaria.html';
+                        break;
+                    case 'ADMIN':
+                        window.location.href = '/pages/dashboard.html';
+                        break;
+                    case 'MORADOR':
+                        window.location.href = '/pages/dashboard.html';
+                        break;
+                    default:
+                        window.location.href = '/pages/dashboard.html';
+                }
+                
+            } catch (error) {
+                // Mostra mensagem de erro
+                errorMessage.textContent = error.message;
+                errorMessage.classList.add('show');
+                
+                // Reabilita botão
+                btnLogin.disabled = false;
+                btnLogin.textContent = 'Entrar';
+            }
+        });
+    </script>
+</body>
+</html>

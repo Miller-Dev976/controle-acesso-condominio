@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condo Access - Portaria</title>
+    <link href="https://fonts.googleapis.com/css?family=Jost" rel="stylesheet">
+    <link rel="stylesheet" href="frontend/css/portaria.css">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Jost, sans-serif;
+        }
+        header {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-titulo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .menu-container {
+            display: flex;
+            align-items: center;
+            gap:33px;
+        }
+        .menu {
+            align-items: center;
+            display: flex;
+            gap: 15px;
+        }
+        .menu a {
+            color: #a7a7a7;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 15px;
+        }
+        .menu a:hover {
+            color: #fff;
+        }
+        .menu a.ativo {
+            font-weight: 500;
+            color: #fff;
+            background-color: #a2a0a05a;
+            border-radius: 7px;
+            padding: 7px 10px;
+        }
+        .botao-sair {
+            background-color: #ffffff;
+            color: #090909;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .botao-sair:hover {
+            background-color: #e0e0e0;
+            transition: background-color 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+            <div class="menu-container">
+                <div class="logo-titulo">CondoAccess</div>
+                <nav class="menu">
+                    <a href="portaria.html" class="ativo">Portaria</a>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="moradores.html">Moradores</a>
+                    <a href="visitantes.html">Visitantes</a>
+                    <a href="historico.html">Histórico</a>
+                </nav>
+            </div>
+
+            <button class="botao-sair">Sair</button>
+    </header>
+</body>
+</html>
