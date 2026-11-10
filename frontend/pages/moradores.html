@@ -89,7 +89,28 @@
         </section>
  
     </main>
+ <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
+    <script src="../js/mock.js"></script>
  
+    <script>
+        // ================= Felipe | JS | Funções compartilhadas =================
+        /*
+         * Funções usadas por todas as páginas (carregar depois do js/mock.js).
+         *
+         * As páginas leem os dados de um objeto global MOCK, que vem do js/mock.js.
+         * Formato esperado (campos baseados nas classes Java de /diagrama):
+         *
+         *   const MOCK = {
+         *     unidades:   [{ id, bloco, numero }],
+         *     moradores:  [{ id, nome, cpf, telefone, email, unidadeId, taxaPendente, ativo }],
+         *     visitantes: [{ id, nome, documento, tipo: "VISITANTE"|"PRESTADOR"|"ENTREGADOR", ultimaVisita: "2026-11-06T12:05" }],
+         *     eventos:    [{ id, dataHora: "2026-11-06T12:05", visitante, unidadeId, evento: "ENTRADA"|"SAIDA"|"NEGADO", operador }],
+         *     areas:      [{ id, nome, capacidade }],
+         *     reservas:   [{ id, moradorId, areaId, inicio, fim, status: "SOLICITADA"|"CONFIRMADA"|"CANCELADA" }]
+         *   };
+         *
+         * Se o mock.js ainda estiver vazio, as páginas abrem com as tabelas vazias, sem erro.
+         */
 
 </body>
 </html>
