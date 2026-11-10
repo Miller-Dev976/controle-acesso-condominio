@@ -111,6 +111,26 @@
          *
          * Se o mock.js ainda estiver vazio, as páginas abrem com as tabelas vazias, sem erro.
          */
+// ---------- Felipe | JS | abrir / fechar formulário ----------
+        function abrirForm(morador) {
+            idEmEdicao = morador ? morador.id : null;
+            tituloForm.textContent = morador ? "Editar morador" : "Novo morador";
+            btnSalvar.textContent = morador ? "Salvar alterações" : "Cadastrar";
+            form.reset();
+            if (morador) {
+                document.getElementById("nome").value = morador.nome;
+                campoCpf.value = morador.cpf;
+                document.getElementById("telefone").value = morador.telefone;
+                document.getElementById("email").value = morador.email;
+                selectUnidade.value = morador.unidadeId;
+            }
+            cardForm.classList.remove("oculto");
+            document.getElementById("nome").focus();
+        }
 
+
+
+
+ </script>
 </body>
 </html>
