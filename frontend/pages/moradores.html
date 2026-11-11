@@ -241,15 +241,13 @@ if (typeof MOCK === "undefined") {
                 tabela.innerHTML = `<tr><td colspan="6" class="vazio">Nenhum morador cadastrado</td></tr>`;
                 return;
             }
-        }
-        tabela.innerHTML = MOCK.moradores.map(m => `
+            tabela.innerHTML = MOCK.moradores.map(m => `
                 <tr class="${m.ativo ? "" : "linha-inativa"}">
                     <td>${esc(m.nome)}</td>
                     <td>${esc(m.cpf)}</td>
                     <td>${nomeUnidade(m.unidadeId)}</td>
                     <td>${badgeSituacao(m)}</td>
                     <td>${badgeStatus(m)}</td>
-                   
                     <td>
                         <div class="acoes">
                             <button class="btn btn-secundario btn-pequeno" data-acao="editar" data-id="${m.id}">Editar</button>
@@ -258,8 +256,9 @@ if (typeof MOCK === "undefined") {
                                 : `<button class="btn btn-secundario btn-pequeno" data-acao="reativar" data-id="${m.id}">Reativar</button>`}
                         </div>
                     </td>
-                    </tr>
+                </tr>
             `).join("");
+        }
         
         tabela.addEventListener("click", (e) => {
             const botao = e.target.closest("button[data-acao]");
