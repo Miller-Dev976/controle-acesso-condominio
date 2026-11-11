@@ -309,5 +309,16 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: wrap;
+    fl
+    /* ---------- Felipe | CSS | Visitantes | campo de busca ---------- */
+.input-busca {
+    width: 280px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 13px;
+    font-size: 14px;
+    font-family: Jost, sans-serif;
+    background-color: #fff;
+    transition: border-color 0.3s;ex-wrap: wrap;
 }
