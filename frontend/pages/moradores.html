@@ -165,6 +165,12 @@ if (typeof MOCK === "undefined") {
                 area.className = "toast-area";
                 document.body.appendChild(area);
             }
+            const toast = document.createElement("div");
+            toast.className = `toast toast-${tipo}`;
+            toast.textContent = mensagem;
+            area.appendChild(toast);
+            setTimeout(() => toast.classList.add("saindo"), 3200);
+            setTimeout(() => toast.remove(), 3600);
 
 
 
