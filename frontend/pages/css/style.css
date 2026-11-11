@@ -58,3 +58,246 @@
             transition: background-color 0.3s;
         }
 
+        /* ---------- Felipe | CSS | Fundo da página ---------- */
+body {
+    background-color: #f4f4f4;
+    color: #222;
+}
+.botao-sair {
+    font-family: Jost, sans-serif;
+}
+
+/* ---------- Felipe | CSS | Layout ---------- */
+.conteudo {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+}
+.topo-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+/* Felipe | CSS | h1 do título da página */
+.topo-pagina h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+.topo-pagina p {
+    font-size: 14px;
+    color: #9e9e9e;
+}
+
+/* ---------- Felipe | CSS | Cards ---------- */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 20px;
+}
+/* Felipe | CSS | h2 dos cards */
+.card h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.oculto {
+    display: none !important;
+}
+
+/* ---------- Felipe | CSS | Formulários (padrão do login) ---------- */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+.form-group {
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 13px;
+    font-size: 14px;
+    font-family: Jost, sans-serif;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #000;
+}
+.form-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+/* ---------- Felipe | CSS | Botões ---------- */
+.btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Jost, sans-serif;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+.btn-primario {
+    background-color: #000;
+    color: #fff;
+}
+.btn-primario:hover {
+    background-color: #333;
+}
+.btn-secundario {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+}
+.btn-secundario:hover {
+    background-color: #f0f0f0;
+}
+.btn-pequeno {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+.btn-perigo {
+    background-color: #fff;
+    color: #c33;
+    border: 1px solid #f1c4c4;
+}
+.btn-perigo:hover {
+    background-color: #fee;
+}
+.btn:disabled {
+    background-color: #eee;
+    color: #aaa;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+
+/* ---------- Felipe | CSS | Tabelas ---------- */
+
+.tabela-container {
+    overflow-x: auto;
+}
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.tabela th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #9e9e9e;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+.tabela td {
+    padding: 12px;
+    border-bottom: 1px solid #f2f2f2;
+    vertical-align: middle;
+}
+.tabela tr:last-child td {
+    border-bottom: none;
+}
+.acoes {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.vazio {
+    text-align: center;
+    color: #9e9e9e;
+    padding: 30px 12px !important;
+}
+/* ---------- Felipe | CSS | Badge arredondado (base) ---------- */
+.badge {
+    display: inline-block;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+/* ---------- Felipe | CSS | Toast (avisos verde/vermelho) ---------- */
+.toast-area {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+.toast {
+    min-width: 260px;
+    max-width: 360px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    animation: toast-entrar 0.25s ease-out;
+    transition: opacity 0.4s, transform 0.4s;
+}
+.toast-sucesso { background-color: #1e7d3c; }
+.toast-erro    { background-color: #c62828; }
+.toast.saindo {
+    opacity: 0;
+    transform: translateX(20px);
+}
+@keyframes toast-entrar {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+/* ---------- Felipe | CSS | Responsividade do header ---------- */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .menu-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .menu {
+        flex-wrap: wrap;
+    }
+}
+                              /*PÁGINA MORADORES  */
+/* ---------- Felipe | CSS | Moradores | linha de morador inativo ---------- */
+.tabela tr.linha-inativa td {
+    color: #aaa;
+}
+ 
+/* ---------- Felipe | CSS | Moradores | badges de situação e status ---------- */
+.badge-ok           { background-color: #e5f6ea; color: #1e7d3c; }
+.badge-inadimplente { background-color: #fde8e8; color: #c33; }
+.badge-ativo        { background-color: #e5f6ea; color: #1e7d3c; }
+.badge-inativo      { background-color: #eeeeee; color: #777; }                

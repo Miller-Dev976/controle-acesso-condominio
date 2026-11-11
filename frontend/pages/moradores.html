@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moradores</title>
+    <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ---------- Felipe | HTML | Header e menu ---------- -->
+    <header>
+        <div class="menu-container">
+            <div class="logo-titulo">CondoAccess</div>
+            <nav class="menu">
+                <a href="portaria.html">Portaria</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="moradores.html" class="ativo">Moradores</a>
+                <a href="visitantes.html">Visitantes</a>
+                <a href="historico.html">Histórico</a>
+                <a href="reservas.html">Reservas</a>
+            </nav>
+        </div>
+        <button class="botao-sair">Sair</button>
+    </header>
+ 
+    <main class="conteudo">
+
+              <!-- ---------- Felipe | HTML | Título da página ---------- -->
+        <div class="topo-pagina">
+            <div>
+                <h1>Moradores</h1>
+                <p>Cadastro e situação financeira dos moradores</p>
+            </div>
+            <button class="btn btn-primario" id="btnAbrirForm">+ Novo morador</button>
+        </div>
+ 
+        <!-- ---------- Felipe | HTML | Formulário que abre e fecha ---------- -->
+        <section class="card oculto" id="cardForm">
+            <h2 id="tituloForm">Novo morador</h2>
+            <form id="formMorador"> 
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" placeholder="(11) 90000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="email@exemplo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="unidade">Unidade</label>
+                        <select id="unidade" required></select>
+                    </div>
+                </div>
+                <div class="form-acoes">
+                    <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primario" id="btnSalvar">Cadastrar</button>
+                </div>
+            </form>
+        </section>
+ 
+        <section class="card">
+             <!-- ---------- Felipe | HTML | Tabela ---------- -->
+            <div class="tabela-container">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Unidade</th>
+                            <th>Situação</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaMoradores"></tbody>
+                </table>
+            </div>
+        </section>
+ 
+    </main>
+ <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
+    <script src="../js/mock.js"></script>
+ 
+    <script>
+        // ================= Felipe | JS | Funções compartilhadas =================
+        /*
+         * Funções usadas por todas as páginas (carregar depois do js/mock.js).
+         *
+         * As páginas leem os dados de um objeto global MOCK, que vem do js/mock.js.
+         * Formato esperado (campos baseados nas classes Java de /diagrama):
+         *
+         *   const MOCK = {
+         *     unidades:   [{ id, bloco, numero }],
+         *     moradores:  [{ id, nome, cpf, telefone, email, unidadeId, taxaPendente, ativo }],
+         *     visitantes: [{ id, nome, documento, tipo: "VISITANTE"|"PRESTADOR"|"ENTREGADOR", ultimaVisita: "2026-11-06T12:05" }],
+         *     eventos:    [{ id, dataHora: "2026-11-06T12:05", visitante, unidadeId, evento: "ENTRADA"|"SAIDA"|"NEGADO", operador }],
+         *     areas:      [{ id, nome, capacidade }],
+         *     reservas:   [{ id, moradorId, areaId, inicio, fim, status: "SOLICITADA"|"CONFIRMADA"|"CANCELADA" }]
+         *   };
+         *
+         * Se o mock.js ainda estiver vazio, as páginas abrem com as tabelas vazias, sem erro.
+         */
+
+if (typeof MOCK === "undefined") {
+            window.MOCK = {};
+        }
+        ["unidades", "moradores", "visitantes", "eventos", "areas", "reservas"].forEach(chave => {
+            if (!Array.isArray(MOCK[chave])) MOCK[chave] = [];
+        });
+        function buscarUnidade(id) {
+            return MOCK.unidades.find(u => u.id === Number(id));
+        }
+        function nomeUnidade(id) {
+            const u = buscarUnidade(id);
+            return u ? `Bloco ${u.bloco} · ${u.numero}` : "-";
+        }
+        function buscarMorador(id) {
+            return MOCK.moradores.find(m => m.id === Number(id));
+        }
+         function buscarArea(id) {
+            return MOCK.areas.find(a => a.id === Number(id));
+        }
+        function proximoId(lista) {
+            return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+        }
+        // "2026-11-06T12:05" -> "06/11/2026 12:05"
+        function formatarDataHora(iso) {
+            if (!iso) return "-";
+            const [data, hora] = iso.split("T");
+            const [ano, mes, dia] = data.split("-");
+            return `${dia}/${mes}/${ano} ${hora ? hora.slice(0, 5) : ""}`.trim();
+        }
+        // data/hora atual no formato do datetime-local
+        function agoraISO() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, "0");
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+// evita que texto digitado vire HTML na tabela
+        function esc(texto) {
+            return String(texto ?? "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+        function preencherSelectUnidades(select, textoPrimeiraOpcao) {
+            select.innerHTML = `<option value="">${textoPrimeiraOpcao}</option>` +
+                MOCK.unidades.map(u => `<option value="${u.id}">${nomeUnidade(u.id)}</option>`).join("");
+        }
+        // toast: tipo = "sucesso" | "erro"
+        function mostrarToast(mensagem, tipo = "sucesso") {
+            let area = document.querySelector(".toast-area");
+            if (!area) {
+                area = document.createElement("div");
+                area.className = "toast-area";
+                document.body.appendChild(area);
+            }
+            const toast = document.createElement("div");
+            toast.className = `toast toast-${tipo}`;
+            toast.textContent = mensagem;
+            area.appendChild(toast);
+            setTimeout(() => toast.classList.add("saindo"), 3200);
+                        setTimeout(() => toast.remove(), 3600);
+        }
+
+
+            // ================= Felipe | JS | Página: moradores =================
+        const cardForm = document.getElementById("cardForm");
+        const form = document.getElementById("formMorador");
+        const tituloForm = document.getElementById("tituloForm");
+        const btnSalvar = document.getElementById("btnSalvar");
+        const tabela = document.getElementById("tabelaMoradores");
+        const campoCpf = document.getElementById("cpf");
+        const selectUnidade = document.getElementById("unidade");
+
+        let idEmEdicao = null; // null = cadastrando, número = editando
+
+        preencherSelectUnidades(selectUnidade, "Selecione a unidade");
+
+// ---------- Felipe | JS | abrir / fechar formulário ----------
+
+        function abrirForm(morador) {
+            idEmEdicao = morador ? morador.id : null;
+            tituloForm.textContent = morador ? "Editar morador" : "Novo morador";
+            btnSalvar.textContent = morador ? "Salvar alterações" : "Cadastrar";
+            form.reset();
+            if (morador) {
+                document.getElementById("nome").value = morador.nome;
+                campoCpf.value = morador.cpf;
+                document.getElementById("telefone").value = morador.telefone;
+                document.getElementById("email").value = morador.email;
+                selectUnidade.value = morador.unidadeId;
+            }
+            cardForm.classList.remove("oculto");
+            document.getElementById("nome").focus();
+        }
+         function fecharForm() {
+            cardForm.classList.add("oculto");
+            form.reset();
+            idEmEdicao = null;
+         }
+         document.getElementById("btnAbrirForm").addEventListener("click", () => {
+            if (cardForm.classList.contains("oculto") || idEmEdicao !== null) abrirForm(null);
+            else fecharForm();
+        });
+        document.getElementById("btnCancelar").addEventListener("click", fecharForm);
+ // ---------- Felipe | JS | máscara de CPF ----------
+        function somenteDigitos(texto) {
+            return texto.replace(/\D/g, "");
+        }
+        campoCpf.addEventListener("input", () => {
+            const d = somenteDigitos(campoCpf.value).slice(0, 11);
+            campoCpf.value = d
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        });
+// ---------- Felipe | JS | tabela ----------
+        function badgeSituacao(m) {
+            return m.taxaPendente > 0
+                ? `<span class="badge badge-inadimplente">Inadimplente</span>`
+               : `<span class="badge badge-ok">Financeira OK</span>`; 
+        }
+        function badgeStatus(m) {
+            return m.ativo
+                ? `<span class="badge badge-ativo">Ativo</span>`
+                : `<span class="badge badge-inativo">Inativo</span>`;
+        }
+        function renderizarTabela() {
+            if (MOCK.moradores.length === 0) {
+                tabela.innerHTML = `<tr><td colspan="6" class="vazio">Nenhum morador cadastrado</td></tr>`;
+                return;
+            }
+            tabela.innerHTML = MOCK.moradores.map(m => `
+                <tr class="${m.ativo ? "" : "linha-inativa"}">
+                    <td>${esc(m.nome)}</td>
+                    <td>${esc(m.cpf)}</td>
+                    <td>${nomeUnidade(m.unidadeId)}</td>
+                    <td>${badgeSituacao(m)}</td>
+                    <td>${badgeStatus(m)}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn btn-secundario btn-pequeno" data-acao="editar" data-id="${m.id}">Editar</button>
+                            ${m.ativo
+                                ? `<button class="btn btn-perigo btn-pequeno" data-acao="inativar" data-id="${m.id}">Inativar</button>`
+                                : `<button class="btn btn-secundario btn-pequeno" data-acao="reativar" data-id="${m.id}">Reativar</button>`}
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+        }
+        
+        tabela.addEventListener("click", (e) => {
+            const botao = e.target.closest("button[data-acao]");
+            if (!botao) return;
+            const morador = buscarMorador(botao.dataset.id);
+ 
+            if (botao.dataset.acao === "editar") {
+                abrirForm(morador);
+            } else if (botao.dataset.acao === "inativar") {
+                morador.ativo = false;
+                mostrarToast(`${morador.nome} foi inativado`);
+                renderizarTabela();
+            } else if (botao.dataset.acao === "reativar") {
+                morador.ativo = true;
+                mostrarToast(`${morador.nome} foi reativado`);
+                renderizarTabela();
+            }
+        });
+        // Regra: CPF duplicado não entra (ignora o próprio morador ao editar)
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const dados = {
+        nome: document.getElementById("nome").value.trim(),
+        cpf: campoCpf.value.trim(),
+        telefone: document.getElementById("telefone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        unidadeId: Number(selectUnidade.value)
+    };
+
+    if (somenteDigitos(dados.cpf).length !== 11) {
+        mostrarToast("CPF precisa ter 11 dígitos", "erro");
+        campoCpf.focus();
+        return;
+    }
+
+    const duplicado = MOCK.moradores.some(m =>
+        somenteDigitos(m.cpf) === somenteDigitos(dados.cpf) &&
+        m.id !== idEmEdicao
+    );
+
+    if (duplicado) {
+        mostrarToast("Já existe um morador com esse CPF", "erro");
+        campoCpf.focus();
+        return;
+    }
+
+    if (idEmEdicao === null) {
+        MOCK.moradores.push({
+            id: proximoId(MOCK.moradores),
+            ...dados,
+            taxaPendente: 0,
+            ativo: true
+        });
+        mostrarToast(`${dados.nome} cadastrado com sucesso`);
+    } else {
+        Object.assign(buscarMorador(idEmEdicao), dados);
+        mostrarToast("Morador atualizado");
+    }
+
+    fecharForm();
+    renderizarTabela();
+});
+renderizarTabela();
+   
+ </script>
+</body>
+</html>
