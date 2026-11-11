@@ -251,8 +251,14 @@ if (typeof MOCK === "undefined") {
                     <td>${badgeStatus(m)}</td>
                     <td>
                         </div>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn btn-secundario btn-pequeno" data-acao="editar" data-id="${m.id}">Editar</button>
+                            ${m.ativo
+                                ? `<button class="btn btn-perigo btn-pequeno" data-acao="inativar" data-id="${m.id}">Inativar</button>`
+                                : `<button class="btn btn-secundario btn-pequeno" data-acao="reativar" data-id="${m.id}">Reativar</button>`}
+                        </div>
                     </td>
-                </tr>
             `).join("");
         
         tabela.addEventListener("click", (e) => {
