@@ -138,7 +138,7 @@ if (typeof MOCK === "undefined") {
         function formatarDataHora(iso) {
             if (!iso) return "-";
             const [data, hora] = iso.split("T");
-            const [no, mes, dia] = data.split("-");
+            const [ano, mes, dia] = data.split("-");
             return `${dia}/${mes}/${ano} ${hora ? hora.slice(0, 5) : ""}`.trim();
         }
 
