@@ -205,7 +205,7 @@ body {
     border-collapse: collapse;
     font-size: 14px;
 }
-tabela th {
+.tabela th {
     text-align: left;
     font-size: 12px;
     text-transform: uppercase;
