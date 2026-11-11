@@ -118,6 +118,9 @@ if (typeof MOCK === "undefined") {
         ["unidades", "moradores", "visitantes", "eventos", "areas", "reservas"].forEach(chave => {
             if (!Array.isArray(MOCK[chave])) MOCK[chave] = [];
         });
+        function buscarUnidade(id) {
+            return MOCK.unidades.find(u => u.id === Number(id));
+        }
 
 
 
@@ -125,7 +128,7 @@ if (typeof MOCK === "undefined") {
 
 
 
-        
+
         function abrirForm(morador) {
             idEmEdicao = morador ? morador.id : null;
             tituloForm.textContent = morador ? "Editar morador" : "Novo morador";
