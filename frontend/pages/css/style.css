@@ -291,4 +291,13 @@ body {
     }
 }
                               /*PÁGINA MORADORES  */
-                              
+/* ---------- Felipe | CSS | Moradores | linha de morador inativo ---------- */
+.tabela tr.linha-inativa td {
+    color: #aaa;
+}
+ 
+/* ---------- Felipe | CSS | Moradores | badges de situação e status ---------- */
+.badge-ok           { background-color: #e5f6ea; color: #1e7d3c; }
+.badge-inadimplente { background-color: #fde8e8; color: #c33; }
+.badge-ativo        { background-color: #e5f6ea; color: #1e7d3c; }
+.badge-inativo      { background-color: #eeeeee; color: #777; }                
