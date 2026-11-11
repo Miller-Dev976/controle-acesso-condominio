@@ -66,3 +66,18 @@ body {
 .botao-sair {
     font-family: Jost, sans-serif;
 }
+
+/* ---------- Felipe | CSS | Layout ---------- */
+.conteudo {
+    max-width: 1100px;
+    margin: 0 auto;
+    pading: 30px 20px 60px;
+}
+.topo-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
