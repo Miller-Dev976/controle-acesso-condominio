@@ -157,6 +157,14 @@ if (typeof MOCK === "undefined") {
             select.innerHTML = `<option value="">${textoPrimeiraOpcao}</option>` +
                 MOCK.unidades.map(u => `<option value="${u.id}">${nomeUnidade(u.id)}</option>`).join("");
         }
+        // toast: tipo = "sucesso" | "erro"
+        function mostrarToast(mensagem, tipo = "sucesso") {
+            let area = document.querySelector(".toast-area");
+            if (!area {
+                area = document.createElement("div");
+                area.className = "toast-area";
+                document.body.appendChild(area);
+            }
 
 
 
