@@ -137,7 +137,10 @@
             else fecharForm();
         });
         document.getElementById("btnCancelar").addEventListener("click", fecharForm);
-
+ // ---------- Felipe | JS | máscara de CPF ----------
+        function somenteDigitos(texto) {
+            return texto.replace(/\D/g, "");
+        }
 
 
  </script>
