@@ -175,6 +175,21 @@
                 tabela.innerHTML = `<tr><td colspan="5" class="vazio">Nenhum visitante encontrado</td></tr>`;
                 return;
             }
+            tabela.innerHTML = lista.map(v => `
+                <tr>
+                    <td>${esc(v.nome)}</td>
+                    <td>${esc(v.documento)}</td>
+                    <td>${badgeTipo(v.tipo)}</td>
+                    <td>${v.ultimaVisita ? formatarData(v.ultimaVisita) : "Nunca"}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn btn-secundario btn-pequeno" data-acao="entrada" data-id="${v.id}">Registrar entrada</button>
+                            <button class="btn btn-perigo btn-pequeno" data-acao="excluir" data-id="${v.id}">Excluir</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+        }
 
 
 
