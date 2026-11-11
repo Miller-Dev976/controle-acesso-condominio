@@ -121,6 +121,10 @@ if (typeof MOCK === "undefined") {
         function buscarUnidade(id) {
             return MOCK.unidades.find(u => u.id === Number(id));
         }
+        function nomeUnidade(id) {
+            const u = buscarUnidade(id);
+            return u ? `Bloco ${u.bloco} · ${u.numero}` : "-";
+        }
 
 
 
