@@ -58,3 +58,11 @@
             transition: background-color 0.3s;
         }
 
+        /* ---------- Felipe | CSS | Fundo da página ---------- */
+body {
+    background-color: #f4f4f4;
+    color: #222;
+}
+.botao-sair {
+    font-family: Jost, sans-serif;
+}
