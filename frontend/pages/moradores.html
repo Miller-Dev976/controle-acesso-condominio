@@ -196,17 +196,51 @@
             }
         });
         // Regra: CPF duplicado não entra (ignora o próprio morador ao editar)
-const duplicado = MOCK.moradores.some(m =>
-    somenteDigitos(m.cpf) === somenteDigitos(dados.cpf) && m.id !== idEmEdicao
-);
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-if (duplicado) {
-    mostrarToast("Já existe um morador com esse CPF", "erro");
-    campoCpf.focus();
-    return;
-}
+    const dados = {
+        nome: document.getElementById("nome").value.trim(),
+        cpf: campoCpf.value.trim(),
+        telefone: document.getElementById("telefone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        unidadeId: Number(selectUnidade.value)
+    };
 
-// ...existing code...
+    if (somenteDigitos(dados.cpf).length !== 11) {
+        mostrarToast("CPF precisa ter 11 dígitos", "erro");
+        campoCpf.focus();
+        return;
+    }
+
+    const duplicado = MOCK.moradores.some(m =>
+        somenteDigitos(m.cpf) === somenteDigitos(dados.cpf) &&
+        m.id !== idEmEdicao
+    );
+
+    if (duplicado) {
+        mostrarToast("Já existe um morador com esse CPF", "erro");
+        campoCpf.focus();
+        return;
+    }
+
+    if (idEmEdicao === null) {
+        MOCK.moradores.push({
+            id: proximoId(MOCK.moradores),
+            ...dados,
+            taxaPendente: 0,
+            ativo: true
+        });
+        mostrarToast(`${dados.nome} cadastrado com sucesso`);
+    } else {
+        Object.assign(buscarMorador(idEmEdicao), dados);
+        mostrarToast("Morador atualizado");
+    }
+
+    fecharForm();
+    renderizarTabela();
+});
+
    
  </script>
 </body>
