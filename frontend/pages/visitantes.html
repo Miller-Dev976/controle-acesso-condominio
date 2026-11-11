@@ -155,7 +155,11 @@
             form.reset();
             cardForm.classList.add("oculto");
         });
-
+// ---------- Felipe | JS | tabela + busca ----------
+        function badgeTipo(tipo) {
+            const t = TIPOS[tipo] || { texto: tipo, classe: "" };
+            return `<span class="badge ${t.classe}">${esc(t.texto)}</span>`;
+        }
 
 
 
