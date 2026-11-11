@@ -135,7 +135,17 @@
             setTimeout(() => toast.classList.add("saindo"), 3200);
             setTimeout(() => toast.remove(), 3600);
         }
-
+//  Felipe | JS | Página: visitantes 
+        const cardForm = document.getElementById("cardForm");
+        const form = document.getElementById("formVisitante");
+        const tabela = document.getElementById("tabelaVisitantes");
+        const campoBusca = document.getElementById("busca");
+ 
+        const TIPOS = {
+            VISITANTE:  { texto: "Visitante",  classe: "badge-visitante" },
+            PRESTADOR:  { texto: "Prestador",  classe: "badge-prestador" },
+            ENTREGADOR: { texto: "Entregador", classe: "badge-entregador" }
+        };
 
 
 
