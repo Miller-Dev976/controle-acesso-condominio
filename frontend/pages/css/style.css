@@ -148,3 +148,49 @@ body {
     justify-content: flex-end;
     margin-top: 20px;
 }
+/* ---------- Felipe | CSS | Botões ---------- */
+.btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Jost, sans-serif;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+.btn-primario {
+    background-color: #000;
+    color: #fff;
+}
+.btn-primario:hover {
+    background-color: #333;
+}
+.btn-secundario {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ddd;
+}
+.btn-secundario:hover {
+    background-color: #f0f0f0;
+}
+.btn-pequeno {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+.btn-perigo {
+    background-color: #fff;
+    color: #c33;
+    border: 1px solid #f1c4c4;
+}
+.btn-perigo:hover {
+    background-color: #fee;
+}
+.btn:disabled {
+    background-color: #eee;
+    color: #aaa;
+    border-color: #eee;
+    cursor: not-allowed;
+}
