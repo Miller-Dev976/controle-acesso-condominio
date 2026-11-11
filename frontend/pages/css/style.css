@@ -108,3 +108,43 @@ body {
 .oculto {
     display: none !important;
 }
+
+/* ---------- Felipe | CSS | Formulários (padrão do login) ---------- */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+.form-group 
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 13px;
+    font-size: 14px;
+    font-family: Jost, sans-serif;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #000;
+}
+.form-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
