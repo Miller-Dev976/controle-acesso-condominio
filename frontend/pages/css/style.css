@@ -99,3 +99,12 @@ body {
     padding: 24px;
     margin-bottom: 20px;
 }
+/* Felipe | CSS | h2 dos cards */
+.card h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.oculto {
+    display: none !important;
+}
