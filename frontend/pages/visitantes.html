@@ -190,6 +190,22 @@
                 </tr>
             `).join("");
         }
+        campoBusca.addEventListener("input", renderizarTabela);
+ 
+        tabela.addEventListener("click", (e) => {
+            const botao = e.target.closest("button[data-acao]");
+            if (!botao) return;
+            const id = Number(botao.dataset.id);
+            const visitante = visitantes.find(v => v.id === id);
+ 
+            if (botao.dataset.acao === "entrada") {
+                visitante.ultimaVisita = hojeISO();
+                mostrarToast(`Entrada de ${visitante.nome} registrada`);
+            } else if (botao.dataset.acao === "excluir") {
+                visitantes = visitantes.filter(v => v.id !== id);
+                mostrarToast(`${visitante.nome} removido`);
+            }
+            renderizarTabela();
 
 
 
