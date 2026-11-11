@@ -222,6 +222,22 @@
                 mostrarToast("Já existe um visitante com esse documento", "erro");
                 return;
             }
+            visitantes.push({
+                id: proximoId(visitantes),
+                nome,
+                documento,
+                tipo,
+                ultimaVisita: hojeISO()
+            });
+ 
+            mostrarToast(`${TIPOS[tipo].texto} ${nome} cadastrado`);
+            form.reset();
+            campoBusca.value = "";
+            document.getElementById("nome").focus(); // mantém aberto para o próximo cadastro rápido
+            renderizarTabela();
+        });
+ 
+        renderizarTabela();
 
 
 
