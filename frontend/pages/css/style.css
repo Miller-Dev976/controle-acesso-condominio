@@ -194,3 +194,43 @@ body {
     border-color: #eee;
     cursor: not-allowed;
 }
+
+/* ---------- Felipe | CSS | Tabelas ---------- */
+
+.tabela-container {
+    overflow-x: auto;
+}
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+tabela th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #9e9e9e;
+    font-weight: 500;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+.tabela td {
+    padding: 12px;
+    border-bottom: 1px solid #f2f2f2;
+    vertical-align: middle;
+}
+.tabela tr:last-child td {
+    border-bottom: none;
+}
+.acoes {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.vazio {
+    text-align: center;
+    color: #9e9e9e;
+    padding: 30px 12px !important;
+}
