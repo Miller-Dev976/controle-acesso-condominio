@@ -148,7 +148,11 @@
                 .replace(/(\d{3})(\d)/, "$1.$2")
                 .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
         });
-
+// ---------- Felipe | JS | tabela ----------
+        function badgeSituacao(m) {
+            return m.taxaPendente > 0
+                ? `<span class="badge badge-inadimplente">Inadimplente</span>`
+               
 
  </script>
 </body>
