@@ -127,7 +127,11 @@
             cardForm.classList.remove("oculto");
             document.getElementById("nome").focus();
         }
-
+         function fecharForm() {
+            cardForm.classList.add("oculto");
+            form.reset();
+            idEmEdicao = null;
+         }
 
 
 
