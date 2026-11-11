@@ -71,7 +71,7 @@ body {
 .conteudo {
     max-width: 1100px;
     margin: 0 auto;
-    pading: 30px 20px 60px;
+    padding: 30px 20px 60px;
 }
 .topo-pagina {
     display: flex;
