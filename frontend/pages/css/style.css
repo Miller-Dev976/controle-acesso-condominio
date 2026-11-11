@@ -332,3 +332,7 @@ body {
         width: 100%;
     }
 }
+/* ---------- Felipe | CSS | Visitantes | badges de tipo ---------- */
+.badge-visitante  { background-color: #e7efff; color: #2453b3; }
+.badge-prestador  { background-color: #f1e9ff; color: #6b3fb5; }
+.badge-entregador { background-color: #fff2e0; color: #b25e00; }
