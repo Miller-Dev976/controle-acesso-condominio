@@ -172,6 +172,18 @@ if (typeof MOCK === "undefined") {
             setTimeout(() => toast.classList.add("saindo"), 3200);
             setTimeout(() => toast.remove(), 3600);
 
+            // ================= Felipe | JS | Página: moradores =================
+        const cardForm = document.getElementById("cardForm");
+        const form = document.getElementById("formMorador");
+        const tituloForm = document.getElementById("tituloForm");
+        const btnSalvar = document.getElementById("btnSalvar");
+        const tabela = document.getElementById("tabelaMoradores");
+        const campoCpf = document.getElementById("cpf");
+        const selectUnidade = document.getElementById("unidade");
+
+        let idEmEdicao = null; // null = cadastrando, número = editando
+
+        preencherSelectUnidades(selectUnidade, "Selecione a unidade");
 
 
 
