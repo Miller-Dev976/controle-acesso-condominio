@@ -206,7 +206,22 @@
                 mostrarToast(`${visitante.nome} removido`);
             }
             renderizarTabela();
+
             });
+            // ---------- Felipe | JS | cadastrar ----------
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nome = document.getElementById("nome").value.trim();
+            const documento = document.getElementById("documento").value.trim();
+            const tipo = document.getElementById("tipo").value;
+ 
+            const jaExiste = visitantes.some(v =>
+                v.documento.replace(/\D/g, "") === documento.replace(/\D/g, "")
+            );
+            if (jaExiste) {
+                mostrarToast("Já existe um visitante com esse documento", "erro");
+                return;
+            }
 
 
 
