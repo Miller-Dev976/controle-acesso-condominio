@@ -147,7 +147,11 @@ if (typeof MOCK === "undefined") {
             const pad = n => String(n).padStart(2, "0");
             return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
         }
-
+// evita que texto digitado vire HTML na tabela
+        function esc(texto) {
+            return String(texto ?? "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
 
 
 
