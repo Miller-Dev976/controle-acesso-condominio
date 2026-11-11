@@ -304,4 +304,10 @@ body {
 /*
    ------------------------------------- PÁGINA VISITANTES -------------------------------------
     */
-    
+    /* ---------- Felipe | CSS | Visitantes | topo com busca e botão ---------- */
+.topo-acoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
