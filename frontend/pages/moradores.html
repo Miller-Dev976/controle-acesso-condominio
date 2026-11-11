@@ -141,7 +141,7 @@
         function somenteDigitos(texto) {
             return texto.replace(/\D/g, "");
         }
-        campoCf.addEventListener("input", () => {
+        campoCpf.addEventListener("input", () => {
             const d = somenteDigitos(campoCpf.value).slice(0, 11);
             campoCpf.value = d
                 .replace(/(\d{3})(\d)/, "$1.$2")
