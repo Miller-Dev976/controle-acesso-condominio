@@ -160,6 +160,18 @@
             const t = TIPOS[tipo] || { texto: tipo, classe: "" };
             return `<span class="badge ${t.classe}">${esc(t.texto)}</span>`;
         }
+        function renderizarTabela() {
+            const termo = campoBusca.value.trim().toLowerCase();
+            const termoDigitos = termo.replace(/\D/g, "");
+ 
+            const lista = visitantes
+                .filter(v =>
+                    v.nome.toLowerCase().includes(termo) ||
+                    v.documento.toLowerCase().includes(termo) ||
+                    (termoDigitos && v.documento.replace(/\D/g, "").includes(termoDigitos))
+                )
+                .sort((a, b) => (b.ultimaVisita || "").localeCompare(a.ultimaVisita || ""));
+ 
 
 
 
