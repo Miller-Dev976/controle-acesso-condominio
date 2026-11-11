@@ -205,7 +205,11 @@
                 telefone: document.getElementById("telefone").value.trim(),
                 email: document.getElementById("email").value.trim(),
                 unidadeId: Number(selectUnidade.value)
-            };    
+            };
+             if (somenteDigitos(dados.cpf).length !== 11) {
+                mostrarToast("CPF precisa ter 11 dígitos", "erro");
+                return;
+            }    
  </script>
 </body>
 </html>
