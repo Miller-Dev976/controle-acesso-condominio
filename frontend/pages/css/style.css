@@ -287,6 +287,6 @@ body {
         gap: 10px;
     }
     .menu {
-        flex-wrap: wap;
+        flex-wrap: wrap;
     }
 }
