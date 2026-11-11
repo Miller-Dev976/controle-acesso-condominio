@@ -93,7 +93,48 @@
         //   { id, nome, documento, tipo: "VISITANTE"|"PRESTADOR"|"ENTREGADOR", ultimaVisita: "2026-11-06" }
         // Se o mock.js não carregar, a página abre com a tabela vazia, sem erro
         let visitantes = typeof VISITANTES_MOCK !== "undefined" ? VISITANTES_MOCK : [];
-
+// ================= Felipe | JS | Funções de apoio =================
+        function proximoId(lista) {
+            return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+        }
+ 
+        // "2026-11-06" -> "06/11/2026"  |  "2026-11-06T12:05" -> "06/11/2026 12:05"
+        function formatarData(iso) {
+            if (!iso) return "-";
+            const [data, hora] = iso.split("T");
+            const [ano, mes, dia] = data.split("-");
+            return `${dia}/${mes}/${ano}${hora ? " " + hora.slice(0, 5) : ""}`;
+        }
+ 
+        // data de hoje no mesmo formato do mock: "2026-11-11"
+        function hojeISO() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, "0");
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        }
+ 
+        // evita que texto digitado vire HTML na tabela
+        function esc(texto) {
+            return String(texto ?? "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+ 
+        // toast: tipo = "sucesso" | "erro"
+        function mostrarToast(mensagem, tipo = "sucesso") {
+            let area = document.querySelector(".toast-area");
+            if (!area) {
+                area = document.createElement("div");
+                area.className = "toast-area";
+                document.body.appendChild(area);
+            }
+            const toast = document.createElement("div");
+            toast.className = `toast toast-${tipo}`;
+            toast.textContent = mensagem;
+            area.appendChild(toast);
+            setTimeout(() => toast.classList.add("saindo"), 3200);
+            setTimeout(() => toast.remove(), 3600);
+        }
 
 
 
