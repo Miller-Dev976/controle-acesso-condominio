@@ -36,6 +36,56 @@
                 <button class="btn btn-primario" id="btnNovo">+ Novo visitante</button>
             </div>
         </div>
+  <!-- ---------- Felipe | HTML | Formulário enxuto ---------- -->
+        <section class="card oculto" id="cardForm">
+            <h2>Novo visitante</h2>
+            <form id="formVisitante">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Nome do visitante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input type="text" id="documento" placeholder="RG ou CPF" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <select id="tipo" required>
+                            <option value="VISITANTE">Visitante</option>
+                            <option value="PRESTADOR">Prestador</option>
+                            <option value="ENTREGADOR">Entregador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-acoes">
+                    <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primario">Cadastrar</button>
+                </div>
+            </form>
+        </section>
  
+        <section class="card">
+            <!-- ---------- Felipe | HTML | Tabela ---------- -->
+            <div class="tabela-container">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            <th>Tipo</th>
+                            <th>Última visita</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tody id="tabelaVisitantes"></tbody>
+                </table>
+            </div>
+        </section>
+ 
+    </main>
+ 
+    <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
+    <script src="../js/mock.js"></script>
 </body>
 </html>
