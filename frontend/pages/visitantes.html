@@ -146,6 +146,15 @@
             PRESTADOR:  { texto: "Prestador",  classe: "badge-prestador" },
             ENTREGADOR: { texto: "Entregador", classe: "badge-entregador" }
         };
+         // ---------- Felipe | JS | abrir / fechar formulário ----------
+        document.getElementById("btnNovo").addEventListener("click", () => {
+            cardForm.classList.toggle("oculto");
+            if (!cardForm.classList.contains("oculto")) document.getElementById("nome").focus();
+        });
+        document.getElementById("btnCancelar").addEventListener("click", () => {
+            form.reset();
+            cardForm.classList.add("oculto");
+        });
 
 
 
