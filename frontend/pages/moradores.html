@@ -39,7 +39,7 @@
         <!-- ---------- Felipe | HTML | Formulário que abre e fecha ---------- -->
         <section class="card oculto" id="cardForm">
             <h2 id="tituloForm">Novo morador</h2>
-            <form id="formMorador">
+            <form id="formMorador"> 
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="nome">Nome</label>
@@ -170,7 +170,9 @@ if (typeof MOCK === "undefined") {
             toast.textContent = mensagem;
             area.appendChild(toast);
             setTimeout(() => toast.classList.add("saindo"), 3200);
-            setTimeout(() => toast.remove(), 3600);
+                        setTimeout(() => toast.remove(), 3600);
+        }
+
 
             // ================= Felipe | JS | Página: moradores =================
         const cardForm = document.getElementById("cardForm");
