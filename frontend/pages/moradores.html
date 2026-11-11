@@ -132,6 +132,11 @@
             form.reset();
             idEmEdicao = null;
          }
+         document.getElementById("btnAbrirForm").addEventListener("click", () => {
+            if (cardForm.classList.contains("oculto") || idEmEdicao !== null) abrirForm(null);
+            else fecharForm();
+        });
+        document.getElementById("btnCancelar").addEventListener("click", fecharForm);
 
 
 
