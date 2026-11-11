@@ -125,6 +125,9 @@ if (typeof MOCK === "undefined") {
             const u = buscarUnidade(id);
             return u ? `Bloco ${u.bloco} · ${u.numero}` : "-";
         }
+        function buscarMorador(id) {
+            return MOCK.moradores.find(m => m.id === Number(id));
+        }
 
 
 
