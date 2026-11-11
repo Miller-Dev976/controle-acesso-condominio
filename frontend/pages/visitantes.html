@@ -88,12 +88,12 @@
     <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
     <script src="../js/mock.js"></script>
     <script>
- // ================= Felipe | JS | Dados =================
+ // Felipe | JS | Dados 
         // Usa VISITANTES_MOCK do js/mock.js (formato do contrato-api.md):
         //   { id, nome, documento, tipo: "VISITANTE"|"PRESTADOR"|"ENTREGADOR", ultimaVisita: "2026-11-06" }
         // Se o mock.js não carregar, a página abre com a tabela vazia, sem erro
         let visitantes = typeof VISITANTES_MOCK !== "undefined" ? VISITANTES_MOCK : [];
-// ================= Felipe | JS | Funções de apoio =================
+//  Felipe | JS | Funções de apoio
         function proximoId(lista) {
             return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
         }
