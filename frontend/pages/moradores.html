@@ -131,7 +131,9 @@ if (typeof MOCK === "undefined") {
          function buscarArea(id) {
             return MOCK.areas.find(a => a.id === Number(id));
         }
-
+        function proximoId(lista) {
+            return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+        }
 
 
 
