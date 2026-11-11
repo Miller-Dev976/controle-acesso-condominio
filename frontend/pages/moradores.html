@@ -167,7 +167,7 @@
         }
         tabela.innerHTML = MOCK.moradores.map(m => `
                 <tr class="${m.ativo ? "" : "linha-inativa"}">
-                    <td>${esc(m.nome)</td>
+                    <td>${esc(m.nome)}</td>
                     <td>${esc(m.cpf)}</td>
                     <td>${nomeUnidade(m.unidadeId)}</td>
                     <td>${badgeSituacao(m)}</td>
