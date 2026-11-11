@@ -159,6 +159,10 @@
                 ? `<span class="badge badge-ativo">Ativo</span>`
                 : `<span class="badge badge-inativo">Inativo</span>`;
         }
+        function renderizarTabela() {
+            if (MOCK.moradores.length === 0) {
+                tabela.innerHTML = `<tr><td colspan="6" class="vazio">Nenhum morador cadastrado</td></tr>`;
+                return;
  </script>
 </body>
 </html>
