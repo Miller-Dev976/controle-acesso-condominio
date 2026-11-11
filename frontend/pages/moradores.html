@@ -112,6 +112,20 @@
          * Se o mock.js ainda estiver vazio, as páginas abrem com as tabelas vazias, sem erro.
          */
 // ---------- Felipe | JS | abrir / fechar formulário ----------
+if (typeof MOCK === "undefined") {
+            window.MOCK = {};
+        }
+        ["unidades", "moradores", "visitantes", "eventos", "areas", "reservas"].forEach(chave => {
+            if (!Array.isArray(MOCK[chave])) MOCK[chave] = [];
+        });
+
+
+
+
+
+
+
+        
         function abrirForm(morador) {
             idEmEdicao = morador ? morador.id : null;
             tituloForm.textContent = morador ? "Editar morador" : "Novo morador";
