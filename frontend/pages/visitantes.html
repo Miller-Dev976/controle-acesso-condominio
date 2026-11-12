@@ -81,7 +81,7 @@
     </main>
     <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
     <script src="../js/mock.js"></script>
-     <script>
+    <script>
         // ================= Felipe | JS | Dados =================
         // Usa do js/mock.js (formato do contrato-api.md):
         //   AREAS_MOCK:     { id, nome, capacidade }
@@ -92,5 +92,16 @@
         const reservas = typeof RESERVAS_MOCK !== "undefined" ? RESERVAS_MOCK : [];
         const moradores = typeof MORADORES_MOCK !== "undefined" ? MORADORES_MOCK : [];
  
+        // ================= Felipe | JS | Funções de apoio =================
+        function proximoId(lista) {
+            return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+        }
+        // "2026-11-10T18:00" -> "10/11/2026 18:00"
+        function formatarDataHora(iso) {
+            if (!iso) return "-";
+            const [data, hora] = iso.split("T");
+            const [ano, mes, dia] = data.split("-");
+            return `${dia}/${mes}/${ano}${hora ? " " + hora.slice(0, 5) : ""}`;
+        }
 </body>
 </html>
