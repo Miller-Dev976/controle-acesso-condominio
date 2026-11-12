@@ -330,3 +330,9 @@ area-card {
 .area-card.selecionada {
     border-color: #000;
     }
+    .area-card .area-nome {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
