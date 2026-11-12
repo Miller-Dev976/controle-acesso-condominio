@@ -171,6 +171,44 @@
                 r.inicio < fim && inicio < r.fim
             );
         }
+  form.addEventListener("submit", (e) => {
+            e.preventDefault();
+ 
+            const morador = moradores.find(m => m.id === Number(selectMorador.value));
+            const inicio = document.getElementById("inicio").value;
+            const fim = document.getElementById("fim").value;
+ 
+            if (!areaSelecionada) {
+                mostrarToast("Selecione uma área comum", "erro");
+                return;
+            }
+            if (fim <= inicio) {
+                mostrarToast("Período da reserva é inválido", "erro");
+                return;
+            }
+            // MoradorInadimplente.podeReservar() -> taxaPendente <= 0
+            if (morador.taxaPendente > 0) {
+                mostrarToast(`${morador.nome} não pode reservar: há taxa pendente (inadimplente)`, "erro");
+                return;
+            }
+            if (temConflito(areaSelecionada, inicio, fim)) {
+                mostrarToast("Área comum já reservada nesse período", "erro");
+                return;
+            }
+ 
+            reservas.push({
+                id: proximoId(reservas),
+                morador: morador.nome,
+                areaComum: areaSelecionada,
+                inicio,
+                fim,
+                status: "SOLICITADA"
+            });
+ 
+            mostrarToast(`Reserva de ${areaSelecionada} solicitada`);
+            form.reset();
+            renderizarTabela();
+        });
  
     </script>
 </body>
