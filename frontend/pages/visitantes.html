@@ -209,7 +209,37 @@
             form.reset();
             renderizarTabela();
         });
-        
+         // ---------- Felipe | JS | tabela ----------
+        function renderizarTabela() {
+            if (reservas.length === 0) {
+                tabela.innerHTML = `<tr><td colspan="6" class="vazio">Nenhuma reserva</td></tr>`;
+                return;
+            }
+ 
+            const lista = [...reservas].sort((a, b) => a.inicio.localeCompare(b.inicio));
+ 
+            tabela.innerHTML = lista.map(r => {
+                const status = STATUS[r.status] || { texto: r.status, classe: "" };
+                // RN06: só confirma o que está SOLICITADA | RN07: não cancela o que já está CANCELADA
+                const podeConfirmar = r.status === "SOLICITADA";
+                const podeCancelar = r.status !== "CANCELADA";
+                return `
+                    <tr>
+                        <td>${esc(r.morador)}</td>
+                        <td>${esc(r.areaComum)}</td>
+                        <td>${formatarDataHora(r.inicio)}</td>
+                        <td>${formatarDataHora(r.fim)}</td>
+                        <td><span class="badge ${status.classe}">${esc(status.texto)}</span></td>
+                        <td>
+                            <div class="acoes">
+                                <button class="btn btn-secundario btn-pequeno" data-acao="confirmar" data-id="${r.id}" ${podeConfirmar ? "" : "disabled"}>Confirmar</button>
+                                <button class="btn btn-perigo btn-pequeno" data-acao="cancelar" data-id="${r.id}" ${podeCancelar ? "" : "disabled"}>Cancelar</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
  
     </script>
 </body>
