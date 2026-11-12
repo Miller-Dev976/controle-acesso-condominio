@@ -81,5 +81,16 @@
     </main>
     <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
     <script src="../js/mock.js"></script>
+     <script>
+        // ================= Felipe | JS | Dados =================
+        // Usa do js/mock.js (formato do contrato-api.md):
+        //   AREAS_MOCK:     { id, nome, capacidade }
+        //   RESERVAS_MOCK:  { id, morador: "João Silva", areaComum: "Quadra", inicio, fim, status: "SOLICITADA"|"CONFIRMADA"|"CANCELADA" }
+        //   MORADORES_MOCK: para o select de moradores e para saber quem está inadimplente
+        // Se o mock.js não carregar, a página abre vazia, sem erro
+        const areas = typeof AREAS_MOCK !== "undefined" ? AREAS_MOCK : [];
+        const reservas = typeof RESERVAS_MOCK !== "undefined" ? RESERVAS_MOCK : [];
+        const moradores = typeof MORADORES_MOCK !== "undefined" ? MORADORES_MOCK : [];
+ 
 </body>
 </html>
