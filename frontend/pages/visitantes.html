@@ -124,6 +124,20 @@
             setTimeout(() => toast.classList.add("saindo"), 3200);
             setTimeout(() => toast.remove(), 3600);
         }
+        // ================= Felipe | JS | Página: reservas =================
+        const areasContainer = document.getElementById("areas");
+        const areaNome = document.getElementById("areaSelecionadaNome");
+        const selectMorador = document.getElementById("morador");
+        const form = document.getElementById("formReserva");
+        const tabela = document.getElementById("tabelaReservas");
+ 
+        const STATUS = {
+            SOLICITADA: { texto: "Solicitada", classe: "badge-solicitada" },
+            CONFIRMADA: { texto: "Confirmada", classe: "badge-confirmada" },
+            CANCELADA:  { texto: "Cancelada",  classe: "badge-cancelada" }
+        };
+ 
+        let areaSelecionada = null; // nome da área, igual ao campo areaComum da reserva
     </script>
 </body>
 </html>
