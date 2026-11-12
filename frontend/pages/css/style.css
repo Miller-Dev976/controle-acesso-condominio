@@ -301,3 +301,38 @@ body {
 .badge-inadimplente { background-color: #fde8e8; color: #c33; }
 .badge-ativo        { background-color: #e5f6ea; color: #1e7d3c; }
 .badge-inativo      { background-color: #eeeeee; color: #777; }                
+/*
+   ------------------------------------- PÁGINA VISITANTES -------------------------------------
+    */
+    /* ---------- Felipe | CSS | Visitantes | topo com busca e botão ---------- */
+.topo-acoes {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+    /* ---------- Felipe | CSS | Visitantes | campo de busca ---------- */
+.input-busca {
+    width: 280px;
+    max-width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 13px;
+    font-size: 14px;
+    font-family: Jost, sans-serif;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+.input-busca:focus {
+    outline: none;
+    border-color: #000;
+}
+@media (max-width: 768px) {
+    .input-busca {
+        width: 100%;
+    }
+}
+/* ---------- Felipe | CSS | Visitantes | badges de tipo ---------- */
+.badge-visitante  { background-color: #e7efff; color: #2453b3; }
+.badge-prestador  { background-color: #f1e9ff; color: #6b3fb5; }
+.badge-entregador { background-color: #fff2e0; color: #b25e00; }

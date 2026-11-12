@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitantes</title>
+   <link href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head> 
+ <body>
+  <!-- ---------- Felipe | HTML | Header e menu ---------- -->
+    <header>
+        <div class="menu-container">
+            <div class="logo-titulo">CondoAccess</div>
+            <nav class="menu">
+                <a href="portaria.html">Portaria</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="moradores.html">Moradores</a>
+                <a href="visitantes.html" class="ativo">Visitantes</a>
+                <a href="historico.html">Histórico</a>
+                <a href="reservas.html">Reservas</a>
+            </nav>
+        </div>
+        <button class="botao-sair">Sair</button>
+    </header>
+ 
+    <main class="conteudo">
+  <!-- ---------- Felipe | HTML | Título da página ---------- -->
+        <div class="topo-pagina">
+            <div>
+                <h1>Visitantes</h1>
+                <p>Visitantes, prestadores e entregadores</p>
+            </div>
+            <div class="topo-acoes">
+                <input type="search" class="input-busca" id="busca" placeholder="Buscar por nome ou documento">
+                <button class="btn btn-primario" id="btnNovo">+ Novo visitante</button>
+            </div>
+        </div>
+  <!-- ---------- Felipe | HTML | Formulário enxuto ---------- -->
+        <section class="card oculto" id="cardForm">
+            <h2>Novo visitante</h2>
+            <form id="formVisitante">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Nome do visitante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="documento">Documento</label>
+                        <input type="text" id="documento" placeholder="RG ou CPF" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <select id="tipo" required>
+                            <option value="VISITANTE">Visitante</option>
+                            <option value="PRESTADOR">Prestador</option>
+                            <option value="ENTREGADOR">Entregador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-acoes">
+                    <button type="button" class="btn btn-secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primario">Cadastrar</button>
+                </div>
+            </form>
+        </section>
+ 
+        <section class="card">
+            <!-- ---------- Felipe | HTML | Tabela ---------- -->
+            <div class="tabela-container">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Documento</th>
+                            <th>Tipo</th>
+                            <th>Última visita</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaVisitantes"></tbody>
+                </table>
+            </div>
+        </section>
+ 
+    </main>
+ 
+    <!-- Dados fictícios: vêm do js/mock.js (feito por outra pessoa do grupo) -->
+    <script src="../js/mock.js"></script>
+    <script>
+ // Felipe | JS | Dados 
+        // Usa VISITANTES_MOCK do js/mock.js (formato do contrato-api.md):
+        //   { id, nome, documento, tipo: "VISITANTE"|"PRESTADOR"|"ENTREGADOR", ultimaVisita: "2026-11-06" }
+        // Se o mock.js não carregar, a página abre com a tabela vazia, sem erro
+        let visitantes = typeof VISITANTES_MOCK !== "undefined" ? VISITANTES_MOCK : [];
+//  Felipe | JS | Funções de apoio
+        function proximoId(lista) {
+            return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+        }
+ 
+        // "2026-11-06" -> "06/11/2026"  |  "2026-11-06T12:05" -> "06/11/2026 12:05"
+        function formatarData(iso) {
+            if (!iso) return "-";
+            const [data, hora] = iso.split("T");
+            const [ano, mes, dia] = data.split("-");
+            return `${dia}/${mes}/${ano}${hora ? " " + hora.slice(0, 5) : ""}`;
+        }
+ 
+        // data de hoje no mesmo formato do mock: "2026-11-11"
+        function hojeISO() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, "0");
+            return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        }
+ 
+        // evita que texto digitado vire HTML na tabela
+        function esc(texto) {
+            return String(texto ?? "").replace(/[&<>"']/g, c => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+ 
+        // toast: tipo = "sucesso" | "erro"
+        function mostrarToast(mensagem, tipo = "sucesso") {
+            let area = document.querySelector(".toast-area");
+            if (!area) {
+                area = document.createElement("div");
+                area.className = "toast-area";
+                document.body.appendChild(area);
+            }
+            const toast = document.createElement("div");
+            toast.className = `toast toast-${tipo}`;
+            toast.textContent = mensagem;
+            area.appendChild(toast);
+            setTimeout(() => toast.classList.add("saindo"), 3200);
+            setTimeout(() => toast.remove(), 3600);
+        }
+//  Felipe | JS | Página: visitantes 
+        const cardForm = document.getElementById("cardForm");
+        const form = document.getElementById("formVisitante");
+        const tabela = document.getElementById("tabelaVisitantes");
+        const campoBusca = document.getElementById("busca");
+ 
+        const TIPOS = {
+            VISITANTE:  { texto: "Visitante",  classe: "badge-visitante" },
+            PRESTADOR:  { texto: "Prestador",  classe: "badge-prestador" },
+            ENTREGADOR: { texto: "Entregador", classe: "badge-entregador" }
+        };
+         // ---------- Felipe | JS | abrir / fechar formulário ----------
+        document.getElementById("btnNovo").addEventListener("click", () => {
+            cardForm.classList.toggle("oculto");
+            if (!cardForm.classList.contains("oculto")) document.getElementById("nome").focus();
+        });
+        document.getElementById("btnCancelar").addEventListener("click", () => {
+            form.reset();
+            cardForm.classList.add("oculto");
+        });
+// ---------- Felipe | JS | tabela + busca ----------
+        function badgeTipo(tipo) {
+            const t = TIPOS[tipo] || { texto: tipo, classe: "" };
+            return `<span class="badge ${t.classe}">${esc(t.texto)}</span>`;
+        }
+        function renderizarTabela() {
+            const termo = campoBusca.value.trim().toLowerCase();
+            const termoDigitos = termo.replace(/\D/g, "");
+ 
+            const lista = visitantes
+                .filter(v =>
+                    v.nome.toLowerCase().includes(termo) ||
+                    v.documento.toLowerCase().includes(termo) ||
+                    (termoDigitos && v.documento.replace(/\D/g, "").includes(termoDigitos))
+                )
+                .sort((a, b) => (b.ultimaVisita || "").localeCompare(a.ultimaVisita || ""));
+  if (lista.length === 0) {
+                tabela.innerHTML = `<tr><td colspan="5" class="vazio">Nenhum visitante encontrado</td></tr>`;
+                return;
+            }
+            tabela.innerHTML = lista.map(v => `
+                <tr>
+                    <td>${esc(v.nome)}</td>
+                    <td>${esc(v.documento)}</td>
+                    <td>${badgeTipo(v.tipo)}</td>
+                    <td>${v.ultimaVisita ? formatarData(v.ultimaVisita) : "Nunca"}</td>
+                    <td>
+                        <div class="acoes">
+                            <button class="btn btn-secundario btn-pequeno" data-acao="entrada" data-id="${v.id}">Registrar entrada</button>
+                            <button class="btn btn-perigo btn-pequeno" data-acao="excluir" data-id="${v.id}">Excluir</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join("");
+        }
+        campoBusca.addEventListener("input", renderizarTabela);
+ 
+        tabela.addEventListener("click", (e) => {
+            const botao = e.target.closest("button[data-acao]");
+            if (!botao) return;
+            const id = Number(botao.dataset.id);
+            const visitante = visitantes.find(v => v.id === id);
+ 
+            if (botao.dataset.acao === "entrada") {
+                visitante.ultimaVisita = hojeISO();
+                mostrarToast(`Entrada de ${visitante.nome} registrada`);
+            } else if (botao.dataset.acao === "excluir") {
+                visitantes = visitantes.filter(v => v.id !== id);
+                mostrarToast(`${visitante.nome} removido`);
+            }
+            renderizarTabela();
+
+            });
+            // ---------- Felipe | JS | cadastrar ----------
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nome = document.getElementById("nome").value.trim();
+            const documento = document.getElementById("documento").value.trim();
+            const tipo = document.getElementById("tipo").value;
+ 
+            const jaExiste = visitantes.some(v =>
+                v.documento.replace(/\D/g, "") === documento.replace(/\D/g, "")
+            );
+            if (jaExiste) {
+                mostrarToast("Já existe um visitante com esse documento", "erro");
+                return;
+            }
+            visitantes.push({
+                id: proximoId(visitantes),
+                nome,
+                documento,
+                tipo,
+                ultimaVisita: hojeISO()
+            });
+ 
+            mostrarToast(`${TIPOS[tipo].texto} ${nome} cadastrado`);
+            form.reset();
+            campoBusca.value = "";
+            document.getElementById("nome").focus(); // mantém aberto para o próximo cadastro rápido
+            renderizarTabela();
+        });
+ 
+        renderizarTabela();
+
+    </script>
+   
+</body>
+</html>
