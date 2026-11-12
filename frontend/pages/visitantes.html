@@ -148,6 +148,14 @@
                 </button>
             `).join("");
         }
+         areasContainer.addEventListener("click", (e) => {
+            const card = e.target.closest(".area-card");
+            if (!card) return;
+            areaSelecionada = card.dataset.nome;
+            areaNome.textContent = areaSelecionada;
+            renderizarAreas();
+        });
+ 
     </script>
 </body>
 </html>
