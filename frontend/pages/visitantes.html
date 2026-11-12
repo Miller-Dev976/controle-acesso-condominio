@@ -138,6 +138,16 @@
         };
  
         let areaSelecionada = null; // nome da área, igual ao campo areaComum da reserva
+
+        // ---------- Felipe | JS | cards de área ----------
+        function renderizarAreas() {
+            areasContainer.innerHTML = areas.map(a => `
+                <button type="button" class="area-card ${a.nome === areaSelecionada ? "selecionada" : ""}" data-nome="${esc(a.nome)}">
+                    <span cass="area-nome">${esc(a.nome)}</span>
+                    <span class="area-capacidade">Capacidade: ${a.capacidade} pessoas</span>
+                </button>
+            `).join("");
+        }
     </script>
 </body>
 </html>
