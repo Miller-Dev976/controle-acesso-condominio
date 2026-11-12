@@ -336,3 +336,9 @@ area-card {
     font-weight: 600;
     color: #000;
 }
+.area-card .area-capacidade {
+    display: block;
+    font-size: 13px;
+    color: #9e9e9e;
+    margin-top: 4px;
+}
