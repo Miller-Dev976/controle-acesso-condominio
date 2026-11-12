@@ -155,6 +155,12 @@
             areaNome.textContent = areaSelecionada;
             renderizarAreas();
         });
+         // ---------- Felipe | JS | select de moradores (só ativos) ----------
+        selectMorador.innerHTML = `<option value="">Selecione o morador</option>` +
+            moradores
+                .filter(m => m.status === "ATIVO")
+                .map(m => `<option value="${m.id}">${esc(m.nome)}${m.unidade ? " (" + esc(m.unidade.nome) + ")" : ""}</option>`)
+                .join("");
  
     </script>
 </body>
