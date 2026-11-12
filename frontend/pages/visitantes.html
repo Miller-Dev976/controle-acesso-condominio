@@ -161,6 +161,16 @@
                 .filter(m => m.status === "ATIVO")
                 .map(m => `<option value="${m.id}">${esc(m.nome)}${m.unidade ? " (" + esc(m.unidade.nome) + ")" : ""}</option>`)
                 .join("");
+                // ---------- Felipe | JS | regras de reserva ----------
+ 
+        // RN04: conflita se sobrepõe uma reserva NÃO cancelada da mesma área
+        function temConflito(areaComum, inicio, fim) {
+            return reservas.some(r =>
+                r.areaComum === areaComum &&
+                r.status !== "CANCELADA" &&
+                r.inicio < fim && inicio < r.fim
+            );
+        }
  
     </script>
 </body>
