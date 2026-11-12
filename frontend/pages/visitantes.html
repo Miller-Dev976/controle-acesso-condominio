@@ -240,7 +240,31 @@
                 `;
             }).join("");
         }
+ tabela.addEventListener("click", (e) => {
+            const botao = e.target.closest("button[data-acao]");
+            if (!botao || botao.disabled) return;
+            const reserva = reservas.find(r => r.id === Number(botao.dataset.id));
  
+            if (botao.dataset.acao === "confirmar") {
+                if (reserva.status !== "SOLICITADA") {
+                    mostrarToast("Só é possível confirmar uma reserva solicitada", "erro");
+                    return;
+                }
+                reserva.status = "CONFIRMADA";
+                mostrarToast("Reserva confirmada");
+            } else if (botao.dataset.acao === "cancelar") {
+                if (reserva.status === "CANCELADA") {
+                    mostrarToast("Reserva já está cancelada", "erro");
+                    return;
+                }
+                reserva.status = "CANCELADA";
+                mostrarToast("Reserva cancelada");
+            }
+            renderizarTabela();
+        });
+ 
+        renderizarAreas();
+        renderizarTabela();
     </script>
 </body>
 </html>
