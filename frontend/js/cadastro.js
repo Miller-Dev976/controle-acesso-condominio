@@ -174,3 +174,38 @@ form.addEventListener("submit", (e) => {
         email: document.getElementById("email").value.trim(),
         unidade: unidade ? { id: unidade.id, nome: unidade.nome } : null
     };
+
+    if (somenteDigitos(dados.cpf).length !== 11) {
+        mostrarToast("CPF precisa ter 11 dígitos", "erro");
+        campoCpf.focus();
+        return;
+    }
+ 
+    // Regra: CPF duplicado não entra (ignora o próprio morador ao editar)
+    const duplicado = moradores.some(m =>
+        somenteDigitos(m.cpf) === somenteDigitos(dados.cpf) && m.id !== idEmEdicao
+    );
+    if (duplicado) {
+        mostrarToast("Já existe um morador com esse CPF", "erro");
+        campoCpf.focus();
+        return;
+    }
+ 
+    if (idEmEdicao === null) {
+        moradores.push({
+            id: proximoId(moradores),
+            ...dados,
+            taxaPendente: 0,
+            status: "ATIVO"
+        });
+        mostrarToast(`${dados.nome} cadastrado com sucesso`);
+    } else {
+        Object.assign(buscarMorador(idEmEdicao), dados);
+        mostrarToast("Morador atualizado");
+    }
+ 
+    fecharForm();
+    renderizarTabela();
+});
+ 
+renderizarTabela();
