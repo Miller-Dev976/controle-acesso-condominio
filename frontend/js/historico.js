@@ -81,3 +81,11 @@ function aplicarFiltros() {
  
     renderizarTabela();
 }
+// ---------- Felipe | JS | tabela + contador ----------
+function badgeEvento(tipo) {
+    const ev = EVENTOS[tipo] || { texto: tipo, classe: "" };
+    return `<span class="badge ${ev.classe}">${esc(ev.texto)}</span>`;
+}
+ 
+function renderizarTabela() {
+    contador.textContent = resultado.length;
