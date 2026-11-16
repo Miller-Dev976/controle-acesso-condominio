@@ -37,3 +37,6 @@ function mostrarToast(mensagem, tipo = "sucesso") {
     setTimeout(() => toast.classList.add("saindo"), 3200);
     setTimeout(() => toast.remove(), 3600);
 }
+function buscarMorador(id) {
+    return moradores.find(m => m.id === Number(id));
+}
