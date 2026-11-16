@@ -162,3 +162,15 @@ tabela.addEventListener("click", (e) => {
         renderizarTabela();
     }
 });
+// ---------- Felipe | JS | cadastrar / editar ----------
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+ 
+    const unidade = listarUnidades().find(u => u.id === Number(selectUnidade.value));
+    const dados = {
+        nome: document.getElementById("nome").value.trim(),
+        cpf: campoCpf.value.trim(),
+        telefone: document.getElementById("telefone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        unidade: unidade ? { id: unidade.id, nome: unidade.nome } : null
+    };
