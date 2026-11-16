@@ -114,3 +114,33 @@ function badgeSituacao(m) {
         ? `<span class="badge badge-inadimplente">Inadimplente</span>`
         : `<span class="badge badge-ok">Financeira OK</span>`;
 }
+
+function badgeStatus(m) {
+    return estaAtivo(m)
+        ? `<span class="badge badge-ativo">Ativo</span>`
+        : `<span class="badge badge-inativo">Inativo</span>`;
+}
+ 
+function renderizarTabela() {
+    if (moradores.length === 0) {
+        tabela.innerHTML = `<tr><td colspan="6" class="vazio">Nenhum morador cadastrado</td></tr>`;
+        return;
+    }
+    tabela.innerHTML = moradores.map(m => `
+        <tr class="${estaAtivo(m) ? "" : "linha-inativa"}">
+            <td>${esc(m.nome)}</td>
+            <td>${esc(m.cpf)}</td>
+            <td>${m.unidade ? esc(m.unidade.nome) : "-"}</td>
+            <td>${badgeSituacao(m)}</td>
+            <td>${badgeStatus(m)}</td>
+            <td>
+                <div class="acoes">
+                    <button class="btn btn-secundario btn-pequeno" data-acao="editar" data-id="${m.id}">Editar</button>
+                    ${estaAtivo(m)
+                        ? `<button class="btn btn-perigo btn-pequeno" data-acao="inativar" data-id="${m.id}">Inativar</button>`
+                        : `<button class="btn btn-secundario btn-pequeno" data-acao="reativar" data-id="${m.id}">Reativar</button>`}
+                </div>
+            </td>
+        </tr>
+    `).join("");
+}
