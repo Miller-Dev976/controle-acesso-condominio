@@ -48,3 +48,10 @@ const EVENTOS = {
     SAIDA:   { texto: "Saída",   classe: "badge-saida" },
     NEGADO:  { texto: "Negado",  classe: "badge-negado" }
 };
+
+// ---------- Felipe | JS | select de unidades (as que aparecem nos eventos) ----------
+const unidades = [...new Set(eventos.map(ev => ev.unidade))].sort();
+selectUnidade.innerHTML = `<option value="">Todas</option>` +
+    unidades.map(u => `<option value="${esc(u)}">${esc(u)}</option>`).join("");
+ 
+let resultado = []; // o que está na tela (é isso que vai pro CSV)
