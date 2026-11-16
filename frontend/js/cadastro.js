@@ -92,3 +92,16 @@ document.getElementById("btnAbrirForm").addEventListener("click", () => {
     else fecharForm();
 });
 document.getElementById("btnCancelar").addEventListener("click", fecharForm);
+
+// ---------- Felipe | JS | máscara de CPF ----------
+function somenteDigitos(texto) {
+    return texto.replace(/\D/g, "");
+}
+ 
+campoCpf.addEventListener("input", () => {
+    const d = somenteDigitos(campoCpf.value).slice(0, 11);
+    campoCpf.value = d
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+});
