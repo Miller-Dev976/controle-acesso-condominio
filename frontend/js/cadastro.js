@@ -47,5 +47,5 @@ function listarUnidades() {
     moradores.forEach(m => {
         if (m.unidade) mapa.set(m.unidade.id, m.unidade);
     });
-    retrn [...mapa.values()].sort((a, b) => a.nome.localeCompare(b.nome));
+    return [...mapa.values()].sort((a, b) => a.nome.localeCompare(b.nome));
 }
