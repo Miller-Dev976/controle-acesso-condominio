@@ -384,3 +384,12 @@ body {
 .badge-prestador  { background-color: #f1e9ff; color: #6b3fb5; }
 .badge-entregador { background-color: #fff2e0; color: #b25e00; }
 
+
+/* ---------- Felipe | CSS | Histórico | barra de filtros ---------- */
+.barra-filtros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    align-items: end;
+}
+
