@@ -79,5 +79,5 @@ function aplicarFiltros() {
         })
         .sort((a, b) => b.dataHora.localeCompare(a.dataHora));
  
-    renderizarTabela(;
+    renderizarTabela();
 }
