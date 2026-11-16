@@ -55,3 +55,29 @@ selectUnidade.innerHTML = `<option value="">Todas</option>` +
     unidades.map(u => `<option value="${esc(u)}">${esc(u)}</option>`).join("");
  
 let resultado = []; // o que está na tela (é isso que vai pro CSV)
+
+// ---------- Felipe | JS | filtros ----------
+function aplicarFiltros() {
+    const inicio = document.getElementById("dataInicio").value;   // "2026-11-01"
+    const fim = document.getElementById("dataFim").value;
+    const unidade = selectUnidade.value;
+    const evento = document.getElementById("filtroEvento").value;
+ 
+    if (inicio && fim && fim < inicio) {
+        mostrarToast("Data fim não pode ser antes da data início", "erro");
+        return;
+    }
+ 
+    resultado = eventos
+        .filter(ev => {
+            const dia = ev.dataHora.slice(0, 10);
+            if (inicio && dia < inicio) return false;
+            if (fim && dia > fim) return false;
+            if (unidade && ev.unidade !== unidade) return false;
+            if (evento && ev.tipo !== evento) return false;
+            return true;
+        })
+        .sort((a, b) => b.dataHora.localeCompare(a.dataHora));
+ 
+    renderizarTabela(;
+}
