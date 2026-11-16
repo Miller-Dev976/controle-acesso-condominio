@@ -26,7 +26,7 @@ function esc(texto) {
 // toast: tipo = "sucesso" | "erro"
 function mostrarToast(mensagem, tipo = "sucesso") {
     let area = document.querySelector(".toast-area");
-    i (!area) {
+    if (!area) {
         area = document.createElement("div");
         area.className = "toast-area";
         document.body.appendChild(area);
