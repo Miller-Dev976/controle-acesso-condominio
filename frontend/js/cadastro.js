@@ -11,6 +11,6 @@
 const moradores = typeof MORADORES_MOCK !== "undefined" ? MORADORES_MOCK : [];
 
 // ================= Felipe | JS | Funções de apoio =================
-functio proximoId(lista) {
+function proximoId(lista) {
     return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
 }
