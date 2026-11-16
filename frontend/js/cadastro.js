@@ -109,3 +109,8 @@ campoCpf.addEventListener("input", () => {
 function estaAtivo(m) {
     return m.status === "ATIVO";
 }
+function badgeSituacao(m) {
+    return m.taxaPendente > 0
+        ? `<span class="badge badge-inadimplente">Inadimplente</span>`
+        : `<span class="badge badge-ok">Financeira OK</span>`;
+}
