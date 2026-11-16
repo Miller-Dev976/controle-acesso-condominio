@@ -9,3 +9,8 @@
 // ================= Felipe | JS | Dados =================
 // Se o mock.js não carregar, a página abre com a tabela vazia, sem erro
 const moradores = typeof MORADORES_MOCK !== "undefined" ? MORADORES_MOCK : [];
+
+// ================= Felipe | JS | Funções de apoio =================
+functio proximoId(lista) {
+    return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
+}
