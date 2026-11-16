@@ -49,3 +49,11 @@ function listarUnidades() {
     });
     return [...mapa.values()].sort((a, b) => a.nome.localeCompare(b.nome));
 }
+// ================= Felipe | JS | Página: moradores =================
+const cardForm = document.getElementById("cardForm");
+const form = document.getElementById("formMorador");
+const tituloForm = document.getElementById("tituloForm");
+const btnSalvar = document.getElementById("btnSalvar");
+const tabela = document.getElementById("tabelaMoradores");
+const campoCpf = document.getElementById("cpf");
+const selectUnidade = document.getElementById("unidade");
