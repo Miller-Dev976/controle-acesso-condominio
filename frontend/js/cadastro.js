@@ -105,3 +105,7 @@ campoCpf.addEventListener("input", () => {
         .replace(/(\d{3})(\d)/, "$1.$2")
         .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 });
+// ---------- Felipe | JS | tabela ----------
+function estaAtivo(m) {
+    return m.status === "ATIVO";
+}
