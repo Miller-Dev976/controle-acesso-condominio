@@ -40,3 +40,12 @@ function mostrarToast(mensagem, tipo = "sucesso") {
 function buscarMorador(id) {
     return moradores.find(m => m.id === Number(id));
 }
+
+// unidades que aparecem nos moradores do mock (o contrato não tem lista separada de unidades)
+function listarUnidades() {
+    const mapa = new Map();
+    moradores.forEach(m => {
+        if (m.unidade) mapa.set(m.unidade.id, m.unidade);
+    });
+    retrn [...mapa.values()].sort((a, b) => a.nome.localeCompare(b.nome));
+}
