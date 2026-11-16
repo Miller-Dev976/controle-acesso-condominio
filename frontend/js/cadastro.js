@@ -81,3 +81,14 @@ selectUnidade.innerHTML = `<option value="">Selecione a unidade</option>` +
     cardForm.classList.remove("oculto");
     document.getElementById("nome").focus();
 }
+function fecharForm() {
+    cardForm.classList.add("oculto");
+    form.reset();
+    idEmEdicao = null;
+}
+ 
+document.getElementById("btnAbrirForm").addEventListener("click", () => {
+    if (cardForm.classList.contains("oculto") || idEmEdicao !== null) abrirForm(null);
+    else fecharForm();
+});
+document.getElementById("btnCancelar").addEventListener("click", fecharForm);
