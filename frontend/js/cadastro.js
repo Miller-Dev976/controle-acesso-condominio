@@ -144,3 +144,21 @@ function renderizarTabela() {
         </tr>
     `).join("");
 }
+
+tabela.addEventListener("click", (e) => {
+    const botao = e.target.closest("button[data-acao]");
+    if (!botao) return;
+    const morador = buscarMorador(botao.dataset.id);
+ 
+    if (botao.dataset.acao === "editar") {
+        abrirForm(morador);
+    } else if (botao.dataset.acao === "inativar") {
+        morador.status = "INATIVO";
+        mostrarToast(`${morador.nome} foi inativado`);
+        renderizarTabela();
+    } else if (botao.dataset.acao === "reativar") {
+        morador.status = "ATIVO";
+        mostrarToast(`${morador.nome} foi reativado`);
+        renderizarTabela();
+    }
+});
