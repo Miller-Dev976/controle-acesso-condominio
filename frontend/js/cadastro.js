@@ -65,3 +65,16 @@ selectUnidade.innerHTML = `<option value="">Selecione a unidade</option>` +
     listarUnidades().map(u => `<option value="${u.id}">${esc(u.nome)}</option>`).join("");
 
     // ---------- Felipe | JS | abrir / fechar formulário ----------
+
+    function abrirForm(morador) {
+    idEmEdicao = morador ? morador.id : null;
+    tituloForm.textContent = morador ? "Editar morador" : "Novo morador";
+    btnSalvar.textContent = morador ? "Salvar alterações" : "Cadastrar";
+    form.reset();
+    if (morador) {
+        document.getElementById("nome").value = morador.nome;
+        campoCpf.value = morador.cpf;
+        document.getElementById("telefone").value = morador.telefone;
+        document.getElementById("email").value = morador.email;
+        selectUnidade.value = morador.unidade ? morador.unidade.id : "";
+    }
