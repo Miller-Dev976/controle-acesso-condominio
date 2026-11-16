@@ -78,3 +78,6 @@ selectUnidade.innerHTML = `<option value="">Selecione a unidade</option>` +
         document.getElementById("email").value = morador.email;
         selectUnidade.value = morador.unidade ? morador.unidade.id : "";
     }
+    cardForm.classList.remove("oculto");
+    document.getElementById("nome").focus();
+}
