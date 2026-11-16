@@ -38,3 +38,13 @@ function mostrarToast(mensagem, tipo = "sucesso") {
     setTimeout(() => toast.classList.add("saindo"), 3200);
     setTimeout(() => toast.remove(), 3600);
 }
+// ================= Felipe | JS | Página: histórico =================
+const tabela = document.getElementById("tabelaHistorico");
+const contador = document.getElementById("contador");
+const selectUnidade = document.getElementById("filtroUnidade");
+ 
+const EVENTOS = {
+    ENTRADA: { texto: "Entrada", classe: "badge-entrada" },
+    SAIDA:   { texto: "Saída",   classe: "badge-saida" },
+    NEGADO:  { texto: "Negado",  classe: "badge-negado" }
+};
