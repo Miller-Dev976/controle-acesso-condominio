@@ -63,3 +63,5 @@ let idEmEdicao = null; // null = cadastrando, número = editando
 // ---------- Felipe | JS | select de unidades ----------
 selectUnidade.innerHTML = `<option value="">Selecione a unidade</option>` +
     listarUnidades().map(u => `<option value="${u.id}">${esc(u.nome)}</option>`).join("");
+
+    // ---------- Felipe | JS | abrir / fechar formulário ----------
