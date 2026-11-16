@@ -81,11 +81,20 @@ function aplicarFiltros() {
  
     renderizarTabela();
 }
-// ---------- Felipe | JS | tabela + contador ----------
-function badgeEvento(tipo) {
-    const ev = EVENTOS[tipo] || { texto: tipo, classe: "" };
-    return `<span class="badge ${ev.classe}">${esc(ev.texto)}</span>`;
-}
- 
-function renderizarTabela() {
+unction renderizarTabela() {
     contador.textContent = resultado.length;
+ 
+    if (resultado.length === 0) {
+        tabela.innerHTML = `<tr><td colspan="5" class="vazio">Nenhum evento para esses filtros</td></tr>`;
+        return;
+    }
+ 
+    tabela.innerHTML = resultado.map(ev => `
+        <tr>
+            <td>${formatarDataHora(ev.dataHora)}</td>
+            <td>${esc(ev.visitante)}</td>
+            <td>${esc(ev.unidade)}</td>
+            <td>${badgeEvento(ev.tipo)}</td>
+            <td>${esc(ev.operador)}</td>
+        </tr>
+    `).join("");
