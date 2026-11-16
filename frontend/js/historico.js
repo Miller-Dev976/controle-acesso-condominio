@@ -17,3 +17,9 @@ function formatarDataHora(iso) {
     const [ano, mes, dia] = data.split("-");
     return `${dia}/${mes}/${ano}${hora ? " " + hora.slice(0, 5) : ""}`;
 }
+// evita que texto vire HTML na tabela
+function esc(texto) {
+    return String(texto ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+}
