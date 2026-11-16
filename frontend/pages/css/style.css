@@ -392,4 +392,13 @@ body {
     gap: 14px;
     align-items: end;
 }
+* ---------- Felipe | CSS | Histórico | contador de eventos ---------- */
+.contador {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+}
+.contador strong {
+    color: #000;
+}
 
