@@ -23,3 +23,18 @@ function esc(texto) {
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[c]));
 }
+// toast: tipo = "sucesso" | "erro"
+function mostrarToast(mensagem, tipo = "sucesso") {
+    let area = document.querySelector(".toast-area");
+    i (!area) {
+        area = document.createElement("div");
+        area.className = "toast-area";
+        document.body.appendChild(area);
+    }
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = mensagem;
+    area.appendChild(toast);
+    setTimeout(() => toast.classList.add("saindo"), 3200);
+    setTimeout(() => toast.remove(), 3600);
+}
