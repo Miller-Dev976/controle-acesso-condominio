@@ -14,3 +14,10 @@ const moradores = typeof MORADORES_MOCK !== "undefined" ? MORADORES_MOCK : [];
 function proximoId(lista) {
     return lista.reduce((max, item) => Math.max(max, item.id), 0) + 1;
 }
+
+// evita que texto digitado vire HTML na tabela
+function esc(texto) {
+    return String(texto ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+}
