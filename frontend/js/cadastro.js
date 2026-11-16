@@ -57,3 +57,6 @@ const btnSalvar = document.getElementById("btnSalvar");
 const tabela = document.getElementById("tabelaMoradores");
 const campoCpf = document.getElementById("cpf");
 const selectUnidade = document.getElementById("unidade");
+
+let idEmEdicao = null; // null = cadastrando, número = editando
+ 
