@@ -8,3 +8,59 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- ---------- Felipe | HTML | Header e menu ---------- -->
+    <header>
+        <div class="menu-container">
+            <div class="logo-titulo">CondoAccess</div>
+            <nav class="menu">
+                <a href="portaria.html">Portaria</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="moradores.html">Moradores</a>
+                <a href="visitantes.html">Visitantes</a>
+                <a href="historico.html" class="ativo">Histórico</a>
+                <a href="reservas.html">Reservas</a>
+            </nav>
+        </div>
+        <button class="botao-sair">Sair</button>
+    </header>
+ 
+    <main class="conteudo">
+
+        <!-- ---------- Felipe | HTML | Título da página ---------- -->
+        <div class="topo-pagina">
+            <div>
+                <h1>Histórico de acessos</h1>
+                <p>Quem entrou, quando, onde e com qual evento</p>
+            </div>
+            <button class="btn btn-secundario" id="btnExportar">Exportar CSV</button>
+        </div>
+
+        <!-- ---------- Felipe | HTML | Barra de filtros ---------- -->
+        <section class="card">
+            <form id="formFiltros" class="barra-filtros">
+                <div class="form-group">
+                    <label for="dataInicio">Data início</label>
+                    <input type="date" id="dataInicio">
+                </div>
+                <div class="form-group">
+                    <label for="dataFim">Data fim</label>
+                    <input type="date" id="dataFim">
+                </div>
+                <div class="form-group">
+                    <label for="filtroUnidade">Unidade</label>
+                    <select id="filtroUnidade"></select>
+                </div>
+                <div class="form-group">
+                    <label for="filtroEvento">Evento</label>
+                    <select id="filtroEvento">
+                        <option value="">Todos</option>
+                        <option value="ENTRADA">Entrada</option>
+                        <option value="SAIDA">Saída</option>
+                        <option value="NEGADO">Negado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primario">Aplicar</button>
+            </form>
+        </section>
+
+ 
