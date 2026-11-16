@@ -401,4 +401,8 @@ body {
 .contador strong {
     color: #000;
 }
+/* ---------- Felipe | CSS | Histórico | badges de evento ---------- */
+.badge-entrada { background-color: #e5f6ea; color: #1e7d3c; }
+.badge-saida   { background-color: #e7efff; color: #2453b3; }
+.badge-negado  { background-color: #fde8e8; color: #c33; }
 
