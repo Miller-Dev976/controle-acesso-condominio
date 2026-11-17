@@ -98,3 +98,4 @@ function renderizarTabela() {
             <td>${esc(ev.operador)}</td>
         </tr>
     `).join("");
+}
