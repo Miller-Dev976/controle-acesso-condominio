@@ -104,3 +104,24 @@ document.getElementById("formFiltros").addEventListener("submit", (e) => {
     e.preventDefault();
     aplicarFiltros();
 });
+
+// ---------- Felipe | JS | exportar CSV (gerado no próprio JS) ----------
+function campoCsv(valor) {
+    const texto = String(valor ?? "");
+    return /[;"\n]/.test(texto) ? `"${texto.replace(/"/g, '""')}"` : texto;
+}
+ 
+document.getElementById("btnExportar").addEventListener("click", () => {
+    if (resultado.length === 0) {
+        mostrarToast("Nenhum evento para exportar", "erro");
+        return;
+    }
+ 
+    const cabecalho = ["Data/Hora", "Visitante", "Unidade", "Evento", "Operador"];
+    const linhas = resultado.map(ev => [
+        formatarDataHora(ev.dataHora),
+        ev.visitante,
+        ev.unidade,
+        (EVENTOS[ev.tipo] || { texto: ev.tipo }).texto,
+        ev.operador
+    ]);
