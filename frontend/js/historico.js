@@ -125,3 +125,22 @@ document.getElementById("btnExportar").addEventListener("click", () => {
         (EVENTOS[ev.tipo] || { texto: ev.tipo }).texto,
         ev.operador
     ]);
+
+    // ";" porque o Excel em português usa ponto e vírgula; ﻿ faz os acentos abrirem certo
+    const csv = "﻿" + [cabecalho, ...linhas]
+        .map(linha => linha.map(campoCsv).join(";"))
+        .join("\r\n");
+ 
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `historico-acessos-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(link.href);
+ 
+    mostrarToast(`${resultado.length} eventos exportados`);
+});
+ 
+aplicarFiltros();
