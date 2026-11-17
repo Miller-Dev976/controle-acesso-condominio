@@ -81,7 +81,7 @@ function aplicarFiltros() {
  
     renderizarTabela();
 }
-unction renderizarTabela() {
+function renderizarTabela() {
     contador.textContent = resultado.length;
  
     if (resultado.length === 0) {
