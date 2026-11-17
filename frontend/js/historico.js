@@ -99,3 +99,8 @@ function renderizarTabela() {
         </tr>
     `).join("");
 }
+
+document.getElementById("formFiltros").addEventListener("submit", (e) => {
+    e.preventDefault();
+    aplicarFiltros();
+});
